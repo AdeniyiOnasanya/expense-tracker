@@ -17,9 +17,7 @@ Vite 7 requires Node **20.19+ or 22.12+**. On older Node, `vite` fails at startu
 
 ## Project nature
 
-This is the starter for Mosh Hamedani's Claude Code course (see README). It is **intentionally flawed**: the README calls out a deliberate bug, poor UI, and messy code that get fixed over the course. Treat the current state as a baseline to edit against — do not assume existing patterns are the intended end state, and do not do unsolicited cleanup sweeps.
-
-One concrete example of the intentional bug: in `src/App.jsx`, `amount` is stored as a string from the `<input type="number">`, so `totalIncome` / `totalExpenses` use `+` on strings and compute via concatenation rather than addition. Keep this in mind when reasoning about the summary numbers.
+This is the starter for Adeniyi expense tracker (see README). It is **intentionally flawed**: the README calls out a deliberate bug, poor UI, and messy code that get fixed over the course. Treat the current state as a baseline to edit against — do not assume existing patterns are the intended end state, and do not do unsolicited cleanup sweeps.
 
 ## Architecture
 
