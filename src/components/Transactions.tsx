@@ -5,9 +5,10 @@ import type { FilterType } from '../types/FilterType';
 type Props = {
   transactions: Transaction[];
   categories: string[];
+  onDelete: (id: number) => void;
 };
 
-function Transactions({ transactions, categories }: Props) {
+function Transactions({ transactions, categories, onDelete }: Props) {
   const [filterType, setFilterType] = useState<FilterType>("all");
   const [filterCategory, setFilterCategory] = useState("all");
 
@@ -43,6 +44,7 @@ function Transactions({ transactions, categories }: Props) {
             <th>Description</th>
             <th>Category</th>
             <th>Amount</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +55,18 @@ function Transactions({ transactions, categories }: Props) {
               <td>{t.category}</td>
               <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
                 {t.type === "income" ? "+" : "-"}${t.amount}
+              </td>
+              <td>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm(`Delete "${t.description}"?`)) {
+                      onDelete(t.id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
