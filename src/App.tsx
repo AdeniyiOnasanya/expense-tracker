@@ -8,6 +8,21 @@ import type { Transaction } from './types/Transaction'
 
 const categories = ["food", "housing", "utilities", "transport", "entertainment", "salary", "other"];
 
+function formatIssueDate(d: Date) {
+  return d.toLocaleDateString('en-US', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+function dayOfYear(d: Date) {
+  const start = new Date(d.getFullYear(), 0, 0);
+  const diff = d.getTime() - start.getTime();
+  return Math.floor(diff / 86400000);
+}
+
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([
     { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
@@ -28,22 +43,47 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
+  const today = new Date();
+  const issueNo = String(dayOfYear(today)).padStart(3, '0');
+
   return (
     <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+      <header className="masthead">
+        <div className="masthead-meta">
+          <strong>Issue №{issueNo}</strong>
+          Vol. {today.getFullYear()} · Personal Edition
+        </div>
+        <h1>The <em>Ledger</em></h1>
+        <div className="masthead-meta masthead-meta--right">
+          <strong>{formatIssueDate(today)}</strong>
+          A private record of in &amp; out
+        </div>
+      </header>
+      <div className="masthead-rule" />
 
-      <Summary transactions={transactions} />
+      <section>
+        <div className="eyebrow">At a glance</div>
+        <Summary transactions={transactions} />
+      </section>
 
-      <SpendingByCategoryChart transactions={transactions} />
+      <section>
+        <div className="eyebrow">Distribution by category</div>
+        <SpendingByCategoryChart transactions={transactions} />
+      </section>
 
-      <AddTransactionForm categories={categories} onAdd={handleAdd} />
+      <section>
+        <div className="eyebrow">Compose entry</div>
+        <AddTransactionForm categories={categories} onAdd={handleAdd} />
+      </section>
 
-      <Transactions
-        transactions={transactions}
-        categories={categories}
-        onDelete={handleDelete}
-      />
+      <section>
+        <div className="eyebrow">The ledger</div>
+        <Transactions
+          transactions={transactions}
+          categories={categories}
+          onDelete={handleDelete}
+        />
+      </section>
     </div>
   );
 }

@@ -1,160 +1,508 @@
 .app {
-  max-width: 800px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 56px 32px 96px;
+  position: relative;
 }
 
-h1 {
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+
+.masthead {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 28px;
+  padding-bottom: 18px;
+  animation: rise 0.7s 0.05s ease-out both;
+}
+
+.masthead-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.masthead-meta--right {
+  text-align: right;
+}
+
+.masthead-meta strong {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
   margin-bottom: 4px;
 }
 
-.subtitle {
-  margin-bottom: 20px;
-  color: #666;
+.masthead h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30;
+  font-size: clamp(54px, 10vw, 108px);
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
 }
 
-.summary {
+.masthead h1 em {
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  color: var(--vermillion);
+  margin-left: 0.05em;
+}
+
+.masthead-rule {
+  height: 5px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  margin-bottom: 56px;
+}
+
+/* legacy subtitle (replaced by masthead) */
+.subtitle { display: none; }
+
+/* ============================================================
+   SECTION EYEBROWS
+   ============================================================ */
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+  align-items: center;
+  gap: 14px;
+}
+
+.eyebrow::before {
+  content: '§';
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--vermillion);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+section {
+  margin-bottom: 64px;
+}
+
+/* ============================================================
+   SUMMARY (figure stack, no boxes)
+   ============================================================ */
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+  animation: rise 0.7s 0.15s ease-out both;
 }
 
 .summary-card {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 14px;
-  background: #fff;
+  padding: 26px 28px 28px;
+  border-right: 1px solid var(--rule);
+  background: transparent;
 }
+
+.summary-card:last-child { border-right: none; }
 
 .summary-card h3 {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 4px;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
 }
 
-.income-amount {
-  color: green;
-  font-size: 20px;
-  font-weight: bold;
+.summary-card .figure {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 144;
+  font-weight: 400;
+  font-size: clamp(38px, 5.4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-feature-settings: 'tnum', 'lnum';
 }
 
-.expense-amount {
-  color: red;
-  font-size: 20px;
-  font-weight: bold;
+.summary-card .figure .currency {
+  font-size: 0.5em;
+  vertical-align: 0.65em;
+  margin-right: 2px;
+  color: var(--ink-soft);
+  font-variation-settings: 'opsz' 9;
 }
 
-.balance-amount {
-  font-size: 20px;
-  font-weight: bold;
+.income-amount  { color: var(--moss); }
+.expense-amount { color: var(--vermillion); }
+.balance-amount { color: var(--ink); }
+
+.summary-card .change {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 12px;
 }
+
+/* ============================================================
+   CHART FRAME
+   ============================================================ */
 
 .chart {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+  animation: rise 0.7s 0.25s ease-out both;
 }
 
-.chart h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+.chart h2 { display: none; }
+
+.chart-frame {
+  border: 1px solid var(--rule-strong);
+  background: rgba(255, 252, 244, 0.45);
+  padding: 28px 14px 18px;
+  position: relative;
 }
+
+.chart-frame::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 5px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+/* ============================================================
+   COMPOSE ENTRY (form)
+   ============================================================ */
 
 .add-transaction {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+  animation: rise 0.7s 0.35s ease-out both;
 }
 
-.add-transaction h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+.add-transaction h2 { display: none; }
+
+.compose {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 0;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+  background: rgba(255, 252, 244, 0.35);
 }
 
-form {
+.compose .field {
+  position: relative;
+  border-right: 1px solid var(--rule);
+  padding: 18px 20px 16px;
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
 }
 
-form input,
-form select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+.compose .field-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
 }
 
-form input[type="text"] {
-  flex: 2;
+.compose input,
+.compose select {
+  width: 100%;
+  font-family: var(--body);
+  font-size: 17px;
+  color: var(--ink);
+  padding: 0;
+  appearance: none;
+  background: transparent;
 }
 
-form input[type="number"] {
-  flex: 1;
+.compose input::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
 }
 
-form select {
-  flex: 1;
+.compose select {
+  cursor: pointer;
+  text-transform: capitalize;
+  padding-right: 18px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
+    linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+  background-position: calc(100% - 8px) center, calc(100% - 4px) center;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
 }
 
-form button {
-  padding: 8px 20px;
-  background: #333;
-  color: #fff;
+.compose .figure-input {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 60;
+  font-feature-settings: 'tnum';
+  font-size: 22px;
+}
+
+.compose .submit {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  padding: 0 32px;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  transition: background 0.25s ease, letter-spacing 0.35s ease;
+  white-space: nowrap;
 }
+
+.compose .submit:hover {
+  background: var(--vermillion);
+  letter-spacing: 0.4em;
+}
+
+.compose .submit:focus-visible {
+  outline: 2px solid var(--vermillion);
+  outline-offset: -4px;
+}
+
+/* generic form fallback */
+form { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ============================================================
+   THE LEDGER (transactions table)
+   ============================================================ */
 
 .transactions {
-  margin-bottom: 24px;
+  animation: rise 0.7s 0.45s ease-out both;
 }
 
-.transactions h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
+.transactions h2 { display: none; }
 
 .filters {
   display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.filters::before {
+  content: 'Filter by';
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
 }
 
 .filters select {
-  padding: 6px;
-  border: 1px solid #ccc;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--rule-strong);
+  padding: 4px 18px 4px 4px;
+  cursor: pointer;
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
+    linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+  background-position: calc(100% - 8px) center, calc(100% - 4px) center;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
 }
+
+.filters select:focus { border-bottom-color: var(--vermillion); }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 
-thead {
-  background: #f5f5f5;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
-}
+thead { background: transparent; }
 
 th {
-  font-size: 12px;
-  color: #888;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--rule-strong);
 }
 
-.delete-btn {
-  padding: 4px 10px;
-  background: #eee;
-  border: 1px solid #ccc;
-  cursor: pointer;
+tbody tr { transition: background 0.2s ease; }
+tbody tr:hover { background: var(--paper-deep); }
+
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 16px;
+  vertical-align: baseline;
+}
+
+td:first-child {
+  font-family: var(--mono);
   font-size: 12px;
-  color: #333;
+  color: var(--ink-soft);
+  letter-spacing: 0.06em;
+  width: 110px;
+}
+
+td:nth-child(3) {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+}
+
+td.amount {
+  font-family: var(--display);
+  font-variation-settings: 'opsz' 60;
+  font-feature-settings: 'tnum', 'lnum';
+  font-size: 19px;
+  text-align: right;
+  width: 150px;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+td:last-child {
+  width: 80px;
+  text-align: right;
+}
+
+tbody button {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed transparent;
+  cursor: pointer;
+  padding: 2px 0;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+tbody button:hover {
+  color: var(--vermillion);
+  border-bottom-color: var(--vermillion);
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+/* ============================================================
+   RECHARTS OVERRIDES
+   ============================================================ */
+
+.recharts-wrapper text {
+  font-family: var(--mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.06em;
+  fill: var(--ink-soft) !important;
+}
+
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+  stroke: var(--rule-strong) !important;
+}
+
+.recharts-cartesian-grid line {
+  stroke: var(--rule) !important;
+}
+
+/* ============================================================
+   PAGE-LOAD ANIMATION
+   ============================================================ */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 760px) {
+  .app { padding: 32px 18px 64px; }
+
+  .masthead {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 14px;
+  }
+  .masthead-meta,
+  .masthead-meta--right { text-align: center; }
+
+  .masthead h1 { font-size: clamp(48px, 14vw, 72px); }
+
+  .summary { grid-template-columns: 1fr; }
+  .summary-card {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .summary-card:last-child { border-bottom: none; }
+
+  .compose { grid-template-columns: 1fr; }
+  .compose .field {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compose .submit { padding: 18px; }
+
+  td:first-child { width: auto; }
+  td.amount { width: auto; font-size: 17px; }
 }

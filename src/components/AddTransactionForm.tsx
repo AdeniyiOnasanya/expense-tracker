@@ -35,30 +35,52 @@ function AddTransactionForm({ categories, onAdd }: Props) {
 
   return (
     <div className="add-transaction">
-      <h2>Add Transaction</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <select value={type} onChange={(e) => setType(e.target.value as TransactionType)}>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
-        <button type="submit">Add</button>
+      <form className="compose" onSubmit={handleSubmit}>
+        <div className="field">
+          <label className="field-label" htmlFor="t-desc">Particulars</label>
+          <input
+            id="t-desc"
+            type="text"
+            placeholder="e.g. Espresso at the corner café"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label className="field-label" htmlFor="t-amt">Amount</label>
+          <input
+            id="t-amt"
+            className="figure-input"
+            type="number"
+            placeholder="0"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label className="field-label" htmlFor="t-type">Ledger</label>
+          <select
+            id="t-type"
+            value={type}
+            onChange={(e) => setType(e.target.value as TransactionType)}
+          >
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
+        <div className="field">
+          <label className="field-label" htmlFor="t-cat">Account</label>
+          <select
+            id="t-cat"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+        <button type="submit" className="submit">Post entry</button>
       </form>
     </div>
   );

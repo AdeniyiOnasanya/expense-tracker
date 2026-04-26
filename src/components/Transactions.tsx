@@ -8,6 +8,13 @@ type Props = {
   onDelete: (id: number) => void;
 };
 
+function fmt(n: number) {
+  return n.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 function Transactions({ transactions, categories, onDelete }: Props) {
   const [filterType, setFilterType] = useState<FilterType>("all");
   const [filterCategory, setFilterCategory] = useState("all");
@@ -22,15 +29,14 @@ function Transactions({ transactions, categories, onDelete }: Props) {
 
   return (
     <div className="transactions">
-      <h2>Transactions</h2>
       <div className="filters">
         <select value={filterType} onChange={(e) => setFilterType(e.target.value as FilterType)}>
-          <option value="all">All Types</option>
+          <option value="all">All types</option>
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
         <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
-          <option value="all">All Categories</option>
+          <option value="all">All accounts</option>
           {categories.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
@@ -41,10 +47,10 @@ function Transactions({ transactions, categories, onDelete }: Props) {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Actions</th>
+            <th>Particulars</th>
+            <th>Account</th>
+            <th style={{ textAlign: 'right' }}>Amount</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -53,8 +59,8 @@ function Transactions({ transactions, categories, onDelete }: Props) {
               <td>{t.date}</td>
               <td>{t.description}</td>
               <td>{t.category}</td>
-              <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                {t.type === "income" ? "+" : "-"}${t.amount}
+              <td className={`amount ${t.type === "income" ? "income-amount" : "expense-amount"}`}>
+                {t.type === "income" ? "+" : "−"}${fmt(t.amount)}
               </td>
               <td>
                 <button
@@ -65,7 +71,7 @@ function Transactions({ transactions, categories, onDelete }: Props) {
                     }
                   }}
                 >
-                  Delete
+                  Strike
                 </button>
               </td>
             </tr>
