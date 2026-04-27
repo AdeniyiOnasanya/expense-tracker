@@ -16,12 +16,13 @@ function AddTransactionForm({ categories, onAdd }: Props) {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (!description || !amount) return;
+    const parsed = parseFloat(amount);
+    if (!description || !amount || isNaN(parsed) || parsed <= 0) return;
 
     onAdd({
       id: Date.now(),
       description,
-      amount: parseFloat(amount),
+      amount: parsed,
       type,
       category,
       date: new Date().toISOString().split('T')[0],
